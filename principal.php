@@ -371,6 +371,7 @@ class baseDeDatos{
 	*/
 
 
+	//aqui se modifica
 	function conectarBase(){//$data){ solo funciona si pasamos datos de la funcion desde otra funcion
 		//extract($data); //solo funciona para ajax
 
