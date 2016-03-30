@@ -55,8 +55,8 @@ class baseDeDatos{
 
 				function crearBase($datos){
 					extract($datos); 
-					$query = "CREATE DATABASE " + $baseDeDatos
-					$query = "USE " + $baseDeDatos
+					$query = "CREATE DATABASE " + $baseDeDatos;
+					$query = "USE " + $baseDeDatos;
 				}
 
 				/*
@@ -84,7 +84,7 @@ class baseDeDatos{
 
 				*/
 
-				function crearTabla($datos){
+			/*	function crearTabla($datos){
 					extract($datos); 
 					$query = "CREATE TABLA " + $tabla + " ("
 						+ " id int NOT NULL AUTO INCREMENT, PRIMARY KEY (id) "
@@ -130,7 +130,7 @@ class baseDeDatos{
 
 			function usarBase($datos){
 				extract($datos); 
-				$query = "USE " + $baseDeDatos
+				$query = "USE " + $baseDeDatos;
 			}
 
 			/*
@@ -179,7 +179,7 @@ class baseDeDatos{
 
 				function tirarTabla($datos){
 					extract($datos); 
-					$query = "DROP TABLE " + $tabla
+					$query = "DROP TABLE " + $tabla;
 				}
 
 				/*
@@ -192,7 +192,7 @@ class baseDeDatos{
 
 				function tirarBase($datos){
 					extract($datos); 
-					$query = "DROP DATABASE " + $baseDeDatos
+					$query = "DROP DATABASE " + $baseDeDatos;
 				}
 
 				/*
@@ -209,7 +209,7 @@ class baseDeDatos{
 
 				function insertarTupla($datos){
 					extract($datos); 
-					$query = "INSERT INTO " + $tabla + " VALUES (" + $datoUno + ", " + $datoDos + ", " + $datoTres + ")"
+					$query = "INSERT INTO " + $tabla + " VALUES (" + $datoUno + ", " + $datoDos + ", " + $datoTres + ")";
 				}
 
 				/*
@@ -231,16 +231,16 @@ class baseDeDatos{
 
 				*/
 
-				function seleccionarTabla($datos){
+				/*function seleccionarTabla($datos){
 					extract($datos);
-					$query = "SELECT * FROM " + $tabla
+					$query = "SELECT * FROM " + $tabla;
 					$arreglo = arreglo(
 						'datoUno'	=> $datoUno,
 						'datoDos'	=> $datoDos,
 						'datoTres'	=> $datoTres
 					);
 					/* enviar $arreglo a modulo */
-				}
+				//}
 
 				/*
 
@@ -280,7 +280,7 @@ class baseDeDatos{
 
 				function actualizarDato($datos){
 					extract($datos);
-					$query = "UPDATE " + $tabla + " SET " + $atributo + " = " + $dato + " WHERE id = " + $id
+					$query = "UPDATE " + $tabla + " SET " + $atributo + " = " + $dato + " WHERE id = " + $id;
 				}
 
 				/*
@@ -291,9 +291,9 @@ class baseDeDatos{
 
 				*/
 
-				function actualizarAtrTxt($datos){
+				/*function actualizarAtrTxt($datos){
 					extract($datos);
-					$query = "UPDATE " + $tabla " SET " + $atributo + " = " + $dato
+					$query = " UPDATE " + $tabla " SET " + $atributo + " = " + $dato;
 				}
 
 				/*
@@ -304,7 +304,7 @@ class baseDeDatos{
 
 				*/
 
-				function actualizarAtrNum($datos){
+				/*function actualizarAtrNum($datos){
 					extract($datos);
 					if ($condOper = "+") {
 						$query = "UPDATE " + $tabla + " SET " + $atributo + " = " + $atributo + " + " + $cond
@@ -333,7 +333,7 @@ class baseDeDatos{
 
 				function borrarTabla($datos){
 					extract($datos);
-					$query = "DELETE FROM " + $tabla
+					$query = "DELETE FROM " + $tabla;
 				}
 
 				/*
@@ -346,7 +346,7 @@ class baseDeDatos{
 
 				function borrarTupla($datos){
 					extract($datos);
-					$query = "DELETE FROM " + $tabla + " WHERE id = " + $id
+					$query = "DELETE FROM " + $tabla + " WHERE id = " + $id;
 				}
 
 				/*
@@ -371,23 +371,34 @@ class baseDeDatos{
 	*/
 
 
-	function conectarBase($data){
+	function conectarBase(){//$data){ solo funciona si pasamos datos de la funcion desde otra funcion
+		//extract($data); //solo funciona para ajax
 
-		extract($data)
+		$usuario = $_POST["usuario"];// recibimos el nombre de usuario desde el formulario html
+		$contraseña = $_POST["contraseña"];// recibimos la contraseña desde el formulario html
 
-		$db_hostname = 'localhost';
-		$db_database = 'baseDeDatos';
-		$db_username = $usuario;
-		$db_password = $contraseña;
+		$db_hostname = "localhost";//direccion de la base
+		$db_database = 'baseDeDatos';//nombre de la base
+		$db_username = $usuario;//usuario
+		$db_password = $contraseña;//contraseña
 		
 		
-		$db_server = mysql_connect($db_hostname, $db_username, $db_password);
-		if (!$db_server) die("No puede conectar a MySQL: " . mysql_error());
+		$db_server = mysql_connect($db_hostname, $db_username, $db_password);//creamos string con datos de conexion
+		if (!$db_server) die("No puede conectar a MySQL, el error es: " . mysql_error());//creamos la conexion, si es false lanza error
 		
-		mysql_select_db($db_database)
+		
+		mysql_select_db($db_database)//
 		or die("No se puede seleccionar la base de datos:" . mysql_error ());
 		
+
+
+		echo "conectado exitosamente";//se conecto exitosamente
+		
 	}
+
+
+
+
 
 
 
@@ -425,7 +436,7 @@ class baseDeDatos{
 			'usuario'	 => $usuario,
 			'email' 	 => $email
 			);
-		$query = "INSERT  "
+		$query = "INSERT ";
 	}
 
 
@@ -490,7 +501,7 @@ class baseDeDatos{
 
 	// Base de datos
 
-	function crearBase($data){
+	function crearBase2($data){
 
 	}
 

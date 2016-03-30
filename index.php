@@ -1,13 +1,29 @@
-<?php 
+<html>
+<!--
+	el formulario con id "conexion", manda los datos usuario y contraseña por medio del metodo oculto post
+	al acrchio principal.php y a la funcion conectarBase al dar click en el boton submit
 
-	echo "PATO: Prueba de modulos, este es un archivo creado desde cyber vision";
+ -->
+	<header>
+		<title>
+			Primera conexion base
+		</title>
+	</header>
 
-	echo "TOÑO: Esto funciono";
+	<body>
+		<form id="conexion" action="principal.php/conectarBase" method="POST" >  
 
-<<<<<<< HEAD
-	echo "TOÑO: Ahora que hay que hacer?";
+			<label>Usuario:</label>
+			<input type="text" name="usuario" value="root">
+			<br>
+			<label>Contraseña:</label>
+			<input type="password" name="contraseña" placeholder="Introduce la contraseña" >
+			<br>
+			<input type="submit" value="Conecta Base">
 
-=======
-	echo "<br>Prueba 29 de marzo";
->>>>>>> refs/remotes/origin/master
-?>
+
+		</form>
+
+	</body>
+
+</html
