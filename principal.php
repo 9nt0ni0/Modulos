@@ -1,13 +1,77 @@
 <?php
 
-$data[usuario] = "paquito";
-$data[contraseña] = "123";
+$llamarPrincipal -> 
+$llamarBaseDeDatos -> conectarBase($baseDatSeg);
+$llamarBaseDeDatos = new baseDeDatos();
 
-$conexion = new baseDeDatos();
-$conexion->conectarBase($data);
+
+class principal {
+
+
+    function pantallaPrinc (){
+
+    	echo "Aqui esta la pantalla principal";
+
+    }
+
+
+}
 
 
 class baseDeDatos{
+
+	$baseDatSeg[usuario] = "AntonioPato";
+	$baseDatSeg[contraseña] = "@12345AntPat";
+
+
+	function conectarBase($baseDatSeg){
+
+		extract($baseDatSeg)
+
+		$db_hostname = 'localhost';
+		$db_database = 'baseDeDatos';
+		$db_username = $usuario;
+		$db_password = $contraseña;
+		
+		
+		$db_server = mysql_connect($db_hostname, $db_username, $db_password);
+		if (!$db_server) die("No puede conectar a MySQL: " . mysql_error());
+		
+		mysql_select_db($db_database)
+		or die("No se puede seleccionar la base de datos:" . mysql_error ());
+		
+	}
+
+
+
+
+
+
+
+	// TOÑO: PATO, ESTAS NO LAS ENTIENDO, ¿CÚAL ES SU FUNCIÓN? ME LAS EXPLICAS PORFA :P
+
+	function consulta($data){
+		$query = "SELECT * FROM clasicos";
+		$resultado = mysql_query($query);
+		if (!$resultado) die("El acceso a la base de datos ha fallado: " . mysql_error());
+	}
+
+	function consultaConParametros($data){
+
+	}
+
+	// TOÑO: PATO, ESTAS NO LAS ENTIENDO, ¿CÚAL ES SU FUNCIÓN? ME LAS EXPLICAS PORFA :P
+
+
+
+
+
+
+
+
+
+
+
 
 
 	/* CONCEPTOS MANEJADOS EN LA BASE DE DATOS
@@ -114,13 +178,53 @@ class baseDeDatos{
 
 				SHOW DATABASES
 
+				*/
+
+				function mostrarBases(){
+					$query = "SHOW DATABASES"
+					$arreglo = arreglo(
+						'baseUno'	=> $baseUno,
+						'baseDos'	=> $baseDos,
+						'baseTres'	=> $baseTres
+					);
+				}
+
+				/*
+
 			Muestra las tablas creadas:
 
 				SHOW TABLES
 
+				*/
+
+				function mostrarTablas(){
+					$query = "SHOW TABLES"
+					$arreglo = arreglo(
+						'tablaUno'	=> $tablaUno,
+						'tablaDos'	=> $tablaDos,
+						'tablaTres'	=> $tablaTres
+					);
+				}
+
+				/*
+
 			Describe (DESCRIBE) los atributos de una tabla:
 
 				DESCRIBE nombreTabla
+
+				*/
+
+				function mostrarTablas($datos){
+					extract($datos)
+					$query = "DESCRIBE " + $tabla
+					$arreglo = arreglo(
+						'atrUno'	=> $atrUno,
+						'atrDos'	=> $atrDos,
+						'atrTres'	=> $atrTres
+					);
+				}
+
+				/*
 
 		Usar (USE).- Permite utilizar a una base de datos ya creada
 
@@ -141,33 +245,105 @@ class baseDeDatos{
 
 				ALTER TABLE nombreDeLaTablaViejo RENAME nombreDeLaTablaNuevo
 
+				*/
+
+				function alterarTablaNom($datos){
+					extract($datos); 
+					$query = "ALTER TABLE " + $tablaVieja + " RENAME " + $tablaNueva
+				}
+
+				/*
+
 			Añadir un nuevo atributo despues que todos los atributos:
 
 				ALTER TABLE nombreDeLaTabla ADD nombreAtributoCua tipoDeDato
+
+				*/
+
+				function alterarAtrUlt($datos){
+					extract($datos); 
+					$query = "ALTER TABLE " + $tabla + " ADD " + $atr
+				}
+
+				/*
 
 			Añadir un nuevo atributo antes que todos los atributos:
 
 				ALTER TABLE nombreDeLaTabla ADD nombreAtributoCua tipoDeDato first
 
+				*/
+
+				function alterarAtrPrim($datos){
+					extract($datos); 
+					$query = "ALTER TABLE " + $tabla + " ADD " + $atr + " FIRST"
+				}
+
+				/*
+
 			Añadir un nuevo atributo despues de alguno específico:
 
 				ALTER TABLE nombreDeLaTabla ADD nombreAtributoCua tipoDeDato after atributoArribaDelNuevo
+
+				*/
+
+				function alterarAtrEnt($datos){
+					extract($datos); 
+					$query = "ALTER TABLE " + $tabla + " ADD " + $atr + "AFTER" + $atrAnt
+				}
+
+				/*
 
 			Cambiar atributos ya existentes:
 
 				ALTER TABLE nombreDeLaTabla CHANGE nombreAtributoViejo nombreAtributoNuevo tipoDeDato
 
+				*/
+
+				function alterarAtr($datos){
+					extract($datos); 
+					$query = "ALTER TABLE " + $tabla + " CHANGE " + $atrViejo + " " + $atrNuevo
+				}
+
+				/*
+
 			Editar el nombre de un atributo existente
 
 				ALTER TABLE nombreDeLaTabla nombreAtributoViejo nombreAtributoNuevo tipoDeDato
+
+				*/
+
+				function alterarAtrNom($datos){
+					extract($datos); 
+					$query = "ALTER TABLE " + $tabla + " " + $atrViejo + " " + $atrNuevo
+				}
+
+				/*
 
 			Modificar el tipo de dato en un atributo:
 
 				ALTER TABLE nombreDeLaTabla MODIFY nombreAtributo tipoDeDatoNuevo
 
+				*/
+
+				function alterarAtrTip($datos){
+					extract($datos); 
+					$query = "ALTER TABLE " + $tabla + " MODIFY " + $atr + " " + $tipoNuevo
+				}
+
+				/*
+
 			Borrar atributos ya existentes
 
 				ALTER TABLE nombreDeLaTabla DROP COLUMN nombreAtributo
+
+				*/
+
+				function alterarAtrBorr($datos){
+					extract($datos); 
+					$query = "ALTER TABLE " + $tabla + " DROP COLUMN " + $atr
+				}
+
+				/*
 		
 		Tirar (DROP).- Borra bases de datos y tablas: 
 
@@ -214,18 +390,22 @@ class baseDeDatos{
 
 				/*
 
-			En alagunos atributos en una tupla dejando el resto como valores nulos
+			En un atributo en una tupla
 
 				INSERT INTO entidad (atributoUno, atributoDos, atributoTres) VALUES (datoUno, datoDos, datoTres)
+
+				*/
 
 				function insertarDato($datos){
 					extract($datos); 
 					$query = "INSERT INTO " + $entidad + " (" + $atributo + ")" + " VALUES " + "(" + $dato + ")"
 				}
 
+				/*
+
 		Seleccionar (SELECT).- muestra datos de una entidad o varias
 
-			Selecciona toda la tabla 
+			Selecciona una tabla 
 
 				SELECT * FROM tabla
 
@@ -244,31 +424,59 @@ class baseDeDatos{
 
 				/*
 
-			Selecciona parte de una tabla
+			Selecciona un atributo
 
-				SELECT * FROM tabla WHERE atributo = condición
+				SELECT atributo FROM tabla
 
-				
+				*/
 
-				function seleccionarTablaCond($cond){
-					/* $cond = "atributo = condición" */ /*
-					$query = "SELECT * FROM tabla WHERE " + $cond
-					$array = array(
+				function seleccionarAtr($datos){
+					extract($datos);
+					$query = "SELECT " + $atr + " FROM " + $tabla
+					$arreglo = arreglo(
 						'datoUno'	=> $datoUno,
 						'datoDos'	=> $datoDos,
 						'datoTres'	=> $datoTres
 					);
 				}
 
-			
+				/*
 
-			Selecciona los datos del atributo de una tabla
+			Selecciona una tupla
 
-				SELECT atributo FROM tabla
+				SELECT * FROM tabla WHERE atributo = condición
 
-			Selecciona parte de los datos del atributo de una tabla
+				*/
+
+				function seleccionarDat($datos){
+					extract($datos);
+					$query = "SELECT * FROM " + $tabla + " WHERE " + $cond
+					$arreglo = arreglo(
+						'datoUno'	=> $datoUno,
+						'datoDos'	=> $datoDos,
+						'datoTres'	=> $datoTres
+					);
+				}
+
+				/*
+
+			Selecciona un dato
 
 				SELECT atributo FROM tabla WHERE atributo = condición
+
+				*/
+
+				function seleccionarDat($datos){
+					extract($datos);
+					$query = "SELECT " + $atr + " FROM " + $tabla + " WHERE " + $cond
+					$arreglo = arreglo(
+						'datoUno'	=> $datoUno,
+						'datoDos'	=> $datoDos,
+						'datoTres'	=> $datoTres
+					);
+				}
+
+				/*
 
 		Actualizar (UPDATE).- edita un dato ya existente
 
@@ -306,22 +514,23 @@ class baseDeDatos{
 
 				/*function actualizarAtrNum($datos){
 					extract($datos);
-					if ($condOper = "+") {
-						$query = "UPDATE " + $tabla + " SET " + $atributo + " = " + $atributo + " + " + $cond
-					} else if ($condOper = "-") {
-						$query = "UPDATE " + $tabla + " SET " + $atributo + " = " + $atributo + " - " + $cond
-					} else if ($condOper = "x") {
-						$query = "UPDATE " + $tabla + " SET " + $atributo + " = " + $atributo + " * " + $cond
-					} else if ($condOper = "/") {
-						$query = "UPDATE " + $tabla + " SET " + $atributo + " = " + $atributo + " / " + $cond
-					}
+					$query = "UPDATE " + $tabla + " SET " + $atributo + " = " + $atributo + $oper
 				}
 
 				/*
 
-			Borrar una cantidad especifica de las primeras tuplas a un mismo dato
+			Edita una cantidad especifica de las primeras tuplas a un mismo dato
 
 				UPDATE entidad SET atributo = datoNuevo LIMIT numeroDeTuplasACambiar
+
+				*/
+
+				function actualizarAtrLim($datos){
+					extract($datos);
+					$query = "UPDATE " + $tabla + " SET " + $atributo + " = " + $datoUniv + " LIMIT " + $limite
+				}
+
+				/*
 
 		Borrar (DELETE).- borra datos (tupla) aunque también tablas y bases de datos
 
@@ -355,6 +564,15 @@ class baseDeDatos{
 
 				DELETE FROM entidad LIMIT numeroDeTuplasABorrar
 
+				*/
+
+				function borrarTuplasLim($datos){
+					extract($datos);
+					$query = "DELETE FROM " + $tabla + "LIMIT" + $limite
+				}
+
+	/*
+
 	Interfaz de base de datos
 
 		Entidad normal = rectangulo con nombre
@@ -371,7 +589,11 @@ class baseDeDatos{
 	*/
 
 
+<<<<<<< Updated upstream
 	//aqui se modifica
+=======
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
 	function conectarBase(){//$data){ solo funciona si pasamos datos de la funcion desde otra funcion
 		//extract($data); //solo funciona para ajax
 
@@ -546,6 +768,8 @@ class Principal {
     }
 
 
+=======
+>>>>>>> Stashed changes
 }
 
 ?>
