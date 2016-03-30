@@ -4,6 +4,10 @@
 
 	echo "TOÑO: Esto funciono";
 
+<<<<<<< HEAD
 	echo "TOÑO: Ahora que hay que hacer?";
 
+=======
+	echo "<br>Prueba 29 de marzo";
+>>>>>>> refs/remotes/origin/master
 ?>
