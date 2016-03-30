@@ -23,7 +23,7 @@ class baseDeDatos{
 	$baseDatSeg[usuario] = "AntonioPato";
 	$baseDatSeg[contraseña] = "@12345AntPat";
 
-
+	/*
 	function conectarBase($baseDatSeg){
 
 		extract($baseDatSeg)
@@ -41,6 +41,34 @@ class baseDeDatos{
 		or die("No se puede seleccionar la base de datos:" . mysql_error ());
 		
 	}
+	*/
+
+
+	function conectarBase(){//$data){ solo funciona si pasamos datos de la funcion desde otra funcion
+		//extract($data); //solo funciona para ajax
+
+		$usuario = $_POST["usuario"];// recibimos el nombre de usuario desde el formulario html
+		$contraseña = $_POST["contraseña"];// recibimos la contraseña desde el formulario html
+
+		$db_hostname = "localhost";//direccion de la base
+		$db_database = 'baseDeDatos';//nombre de la base
+		$db_username = $usuario;//usuario
+		$db_password = $contraseña;//contraseña
+		
+		
+		$db_server = mysql_connect($db_hostname, $db_username, $db_password);//creamos string con datos de conexion
+		if (!$db_server) die("No puede conectar a MySQL, el error es: " . mysql_error());//creamos la conexion, si es false lanza error
+		
+		
+		mysql_select_db($db_database)//
+		or die("No se puede seleccionar la base de datos:" . mysql_error ());
+		
+
+
+		echo "conectado exitosamente";//se conecto exitosamente
+		
+	}
+
 
 
 
@@ -589,35 +617,9 @@ class baseDeDatos{
 	*/
 
 
-<<<<<<< Updated upstream
-	//aqui se modifica
-=======
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-	function conectarBase(){//$data){ solo funciona si pasamos datos de la funcion desde otra funcion
-		//extract($data); //solo funciona para ajax
-
-		$usuario = $_POST["usuario"];// recibimos el nombre de usuario desde el formulario html
-		$contraseña = $_POST["contraseña"];// recibimos la contraseña desde el formulario html
-
-		$db_hostname = "localhost";//direccion de la base
-		$db_database = 'baseDeDatos';//nombre de la base
-		$db_username = $usuario;//usuario
-		$db_password = $contraseña;//contraseña
-		
-		
-		$db_server = mysql_connect($db_hostname, $db_username, $db_password);//creamos string con datos de conexion
-		if (!$db_server) die("No puede conectar a MySQL, el error es: " . mysql_error());//creamos la conexion, si es false lanza error
-		
-		
-		mysql_select_db($db_database)//
-		or die("No se puede seleccionar la base de datos:" . mysql_error ());
-		
 
 
-		echo "conectado exitosamente";//se conecto exitosamente
-		
-	}
+	
 
 
 
@@ -629,19 +631,7 @@ class baseDeDatos{
 
 
 
-	// TOÑO: PATO, ESTAS NO LAS ENTIENDO, ¿CÚAL ES SU FUNCIÓN? ME LAS EXPLICAS PORFA :P
 
-	function consulta($data){
-		$query = "SELECT * FROM clasicos";
-		$resultado = mysql_query($query);
-		if (!$resultado) die("El acceso a la base de datos ha fallado: " . mysql_error());
-	}
-
-	function consultaConParametros($data){
-
-	}
-
-	// TOÑO: PATO, ESTAS NO LAS ENTIENDO, ¿CÚAL ES SU FUNCIÓN? ME LAS EXPLICAS PORFA :P
 
 
 
