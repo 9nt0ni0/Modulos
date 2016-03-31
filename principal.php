@@ -1,9 +1,7 @@
 <?php
 
-$llamarPrincipal -> 
-$llamarBaseDeDatos -> conectarBase($baseDatSeg);
-$llamarBaseDeDatos = new baseDeDatos();
-
+$llamarPrincipal -> pantallaPrinc();
+$llamarPrincipal = new principal();
 
 class principal {
 
@@ -18,89 +16,37 @@ class principal {
 }
 
 
+// AQUI ES DONDE EMPEZARIA EL MODULO BASE DE DATOS
+
+
+
+$llamarBaseDeDatos -> conectarBase($baseDatSeg);
+$llamarBaseDeDatos = new baseDeDatos();
+
 class baseDeDatos{
 
-	$baseDatSeg[usuario] = "AntonioPato";
-	$baseDatSeg[contraseña] = "@12345AntPat";
+	function conectarBase($datos){
 
-	/*
-	function conectarBase($baseDatSeg){
-
-		extract($baseDatSeg)
-
-		$db_hostname = 'localhost';
-		$db_database = 'baseDeDatos';
-		$db_username = $usuario;
-		$db_password = $contraseña;
-		
-		
-		$db_server = mysql_connect($db_hostname, $db_username, $db_password);
-		if (!$db_server) die("No puede conectar a MySQL: " . mysql_error());
-		
-		mysql_select_db($db_database)
-		or die("No se puede seleccionar la base de datos:" . mysql_error ());
-		
-	}
-	*/
-
-
-	function conectarBase(){//$data){ solo funciona si pasamos datos de la funcion desde otra funcion
-		//extract($data); //solo funciona para ajax
-
-		$usuario = $_POST["usuario"];// recibimos el nombre de usuario desde el formulario html
-		$contraseña = $_POST["contraseña"];// recibimos la contraseña desde el formulario html
+		extract($datos)
+		// Este arreglo $datos contiene $BaseDeDatos, $Usuario, $Contrasenna		
 
 		$db_hostname = "localhost";//direccion de la base
-		$db_database = 'baseDeDatos';//nombre de la base
-		$db_username = $usuario;//usuario
-		$db_password = $contraseña;//contraseña
+		$db_database = $BaseDeDatos;//nombre de la base
+		$db_username = $Usuario;//usuario
+		$db_password = $Contrasenna;//contraseña
 		
 		
 		$db_server = mysql_connect($db_hostname, $db_username, $db_password);//creamos string con datos de conexion
-		if (!$db_server) die("No puede conectar a MySQL, el error es: " . mysql_error());//creamos la conexion, si es false lanza error
+		if (!$db_server) die("No puede conectar a la base de datos, el código de error MySQL es: " . mysql_error());//creamos la conexion, si es false lanza error
 		
 		
 		mysql_select_db($db_database)//
-		or die("No se puede seleccionar la base de datos:" . mysql_error ());
+		or die("No se puede seleccionar la base de datos, el código de error MySQL es: " . mysql_error());
+
+
+		echo "Estas conectado a la base de datos " . $BaseDeDatos;//se conecto exitosamente
 		
-
-
-		echo "conectado exitosamente";//se conecto exitosamente
-		
 	}
-
-
-
-
-
-
-
-
-	// TOÑO: PATO, ESTAS NO LAS ENTIENDO, ¿CÚAL ES SU FUNCIÓN? ME LAS EXPLICAS PORFA :P
-
-	function consulta($data){
-		$query = "SELECT * FROM clasicos";
-		$resultado = mysql_query($query);
-		if (!$resultado) die("El acceso a la base de datos ha fallado: " . mysql_error());
-	}
-
-	function consultaConParametros($data){
-
-	}
-
-	// TOÑO: PATO, ESTAS NO LAS ENTIENDO, ¿CÚAL ES SU FUNCIÓN? ME LAS EXPLICAS PORFA :P
-
-
-
-
-
-
-
-
-
-
-
-
 
 	/* CONCEPTOS MANEJADOS EN LA BASE DE DATOS
 
@@ -258,14 +204,10 @@ class baseDeDatos{
 
 			USE nombre de la base de datos
 
-			*/
-
 			function usarBase($datos){
 				extract($datos); 
 				$query = "USE " + $baseDeDatos
 			}
-
-			/*
 
 		Alterar (ALTER).- Editar a una tabla ya creada y sus atributos: 
 
